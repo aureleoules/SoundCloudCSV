@@ -10,18 +10,21 @@ next_href = ""
 fname = username + ".csv"
 file = open(fname, "w")
 writer = csv.writer(file)
+
+def writeLine(track):
+    writer.writerow( (track.title, track.permalink_url) )
+    print(track.title.replace(',', ' ') + " " + track.permalink_url)
+
 tracks = client.get('/users/' + username + '/favorites', order='created_at', limit=page_size, 
 linked_partitioning=1)
 for track in tracks.collection:
-    writer.writerow( (track.title, track.permalink_url) )
-    print(track.title.replace(',', ' ') + " " + track.permalink_url)
+    writeLine(track)
 
 next_href = tracks.next_href
 while(next_href):
     tracks2 = client.get(next_href, order='created_at', limit=page_size, linked_partitioning=1)
     for track in tracks2.collection:
-        writer.writerow((track.title, track.permalink_url) )
-        print(track.title.replace(',', ' ') + " " + track.permalink_url)
+        writeLine(track)
         
     if hasattr(tracks2, "next_href"):
         next_href = tracks2.next_href

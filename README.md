@@ -1,5 +1,5 @@
 # Soundcloud Favorites To CSV
-Retrieve all your soundcloud likes/favorites in a CSV file!
+Retrieve all soundcloud likes/favorites of an user in a CSV file!
 
 # Usage:
 * Install [Soundcloud Library](https://github.com/soundcloud/soundcloud-python): `pip install soundcloud`
