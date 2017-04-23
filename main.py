@@ -5,6 +5,7 @@ username = input("Username: ")
 
 client = soundcloud.Client(client_id=client_id)
 totalDuration = 0
+totalTracks = 0
 page_size = 200 # Max 200!
 next_href = ""
 fname = username + ".csv"
@@ -12,9 +13,12 @@ file = open(fname, "w")
 writer = csv.writer(file)
 def writeLine(track):
     global totalDuration
+    global totalTracks
+
     writer.writerow( (track.title, track.permalink_url) )
     print(track.title.replace(',', ' ') + " " + track.permalink_url)
     totalDuration = totalDuration + track.duration
+    totalTracks += 1
 
 tracks = client.get('/users/' + username + '/favorites', order='created_at', limit=page_size, 
 linked_partitioning=1)
@@ -32,6 +36,7 @@ while(next_href):
     else:
         next_href = ""
 print("Done.")
+print("Total fetched tracks: " + repr(totalTracks) + ".")
 print("Total playlist duration:")
 print("    " + repr(round(totalDuration / 1000)) + "s.")
 print("    " + repr(round(totalDuration / 1000 / 60)) + "mins.")
