@@ -1,6 +1,6 @@
 import soundcloud
 import csv
-client_id="YOUR_CLIENT_ID" #TODO: Change to your Client ID
+client_id="CLIENT_ID_HERE" #TODO: Change to your Client ID
 username = input("Username: ")
 
 client = soundcloud.Client(client_id=client_id)
